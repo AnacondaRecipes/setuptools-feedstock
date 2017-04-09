@@ -18,7 +18,7 @@ build:
     - easy_install = setuptools.command.easy_install:main
 
 requirements:
-  build:
+  host:
     - python
     - certifi
     - wincertstore  # [win]
@@ -54,3 +54,4 @@ extra:
     - msarahan
     - ocefpaf
     - nicoddemus
+    - mingwandroid
