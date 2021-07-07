@@ -9,7 +9,7 @@ source:
   sha256: 40301539813cfdd2d0cd69498268747647b6ca52089d0e9276e3c6e80197cadf
   patches:
     # Don't create requires.txt with exact pinnings
-    - 0001-Remove-exact-pinning-on-certifi-and-wincertstore.patch
+    #- 0001-Remove-exact-pinning-on-certifi-and-wincertstore.patch
     # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
     - 0002-disable-downloads-inside-conda-build.patch
 
@@ -20,6 +20,7 @@ build:
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
+    - wheel
     - patch      #[not win]
     - m2-patch   #[win]
   host:
