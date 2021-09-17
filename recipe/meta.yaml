@@ -30,6 +30,8 @@ build:
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
+    - patch                                  # [unix]
+    - m2-patch                               # [win]
   host:
     - python
     - certifi  >=2016.9.26
