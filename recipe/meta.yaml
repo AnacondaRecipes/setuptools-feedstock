@@ -40,7 +40,7 @@ requirements:
   run:
     - python
     # strict dep on certifi/wincertstore was removed in 58 version
-    # as we provided those dependencies in the past in setuptools, keep it for now ...
+    # as we provided those dependencies in the past in setuptools, keep it for now ... 
     - certifi  >=2016.9.26
     - wincertstore  >=0.2  # [win]
 
