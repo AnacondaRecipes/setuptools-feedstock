@@ -9,9 +9,9 @@ Subject: [PATCH 21/30] Add /d1trimfile:%SRC_DIR% to make pdbs more relocatable
 
 diff --git a/setuptools/_distutils/_msvccompiler.py b/setuptools/_distutils/_msvccompiler.py
 index af8099a407..8f73453a6c 100644
---- a/setuptools/_distutils/_msvccompiler.py
-+++ b/setuptools/_distutils/_msvccompiler.py
-@@ -346,6 +346,13 @@ class MSVCCompiler(CCompiler) :
+--- a/setuptools/_distutils/_msvccompiler.py	2022-04-04 14:03:00.035200972 +0300
++++ b/setuptools/_distutils/_msvccompiler.py	2022-04-04 14:03:07.339339379 +0300
+@@ -350,6 +350,13 @@
                  # without asking the user to browse for it
                  src = os.path.abspath(src)
  
@@ -25,7 +25,7 @@ index af8099a407..8f73453a6c 100644
              if ext in self._c_extensions:
                  input_opt = "/Tc" + src
              elif ext in self._cpp_extensions:
-@@ -390,7 +397,7 @@ class MSVCCompiler(CCompiler) :
+@@ -394,7 +401,7 @@
                  raise CompileError("Don't know how to compile {} to {}"
                                     .format(src, obj))
  
@@ -34,6 +34,3 @@ index af8099a407..8f73453a6c 100644
              if add_cpp_opts:
                  args.append('/EHsc')
              args.append(input_opt)
--- 
-2.23.0
-
