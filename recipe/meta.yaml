@@ -24,6 +24,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
   host:
     - python
+    - wheel
   run:
     - python
 
@@ -31,6 +32,10 @@ test:
   imports:
     - setuptools
     - pkg_resources
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/pypa/setuptools
