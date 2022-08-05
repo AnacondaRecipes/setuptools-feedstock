@@ -1,5 +1,4 @@
-diff --git a/setuptools/_distutils/command/install.py b/setuptools/_distuti
-ls/command/install.py
+diff --git a/setuptools/_distutils/command/install.py b/setuptools/_distutils/command/install.py
 index a38cddc..f086a7d 100644
 --- a/setuptools/_distutils/command/install.py
 +++ b/setuptools/_distutils/command/install.py
@@ -12,8 +11,7 @@ index a38cddc..f086a7d 100644
 -        'headers': '{base}/include/{dist_name}',
 +        'purelib': '$base/lib/python$py_version_short/site-packages',
 +        'platlib': '$platbase/lib/python$py_version_short/site-packages',
-+        'headers': '$base/include/python$py_version_short$abiflags/$dist_n
-ame',
++        'headers': '$base/include/python$py_version_short$abiflags/$dist_name',
          'scripts': '{base}/bin',
          'data': '{base}',
      },
