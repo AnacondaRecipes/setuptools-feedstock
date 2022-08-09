@@ -1,3 +1,8 @@
+# Branch conda
+# Node ID 85c317f36cd8fc1962c1776a6cfb1df3572c518c
+# Parent  e9052b361691a2de3cfb86712ecd4609ac3aff12
+conda schema fixes for distutils
+
 diff --git a/setuptools/_distutils/command/install.py b/setuptools/_distutils/command/install.py
 index a38cddc..f086a7d 100644
 --- a/setuptools/_distutils/command/install.py
