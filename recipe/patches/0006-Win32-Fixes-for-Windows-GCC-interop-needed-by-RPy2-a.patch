@@ -6,20 +6,21 @@ Subject: [PATCH 06/30] Win32: Fixes for Windows GCC interop needed by RPy2 and
 
 We must pass -DMS_WIN32 or -DMS_WIN64
 ---
- Lib/distutils/cygwinccompiler.py | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/setuptools/_distutils/cygwinccompiler.py b/setuptools/_distutils/cygwinccompiler.py
-index e6c790118b..d4337669e3 100644
---- a/setuptools/_distutils/cygwinccompiler.py	2022-04-04 14:10:21.103272716 +0300
-+++ b/setuptools/_distutils/cygwinccompiler.py	2022-04-04 14:10:32.087468154 +0300
-@@ -276,9 +276,13 @@
-             raise CCompilerError(
-                 'Cygwin gcc cannot be used with --compiler=mingw32')
- 
--        self.set_executables(compiler='%s -O -Wall' % self.cc,
--                             compiler_so='%s -mdll -O -Wall' % self.cc,
--                             compiler_cxx='%s -O -Wall' % self.cxx,
+index 2c6dbae..2b88a22 100644
+--- a/setuptools/_distutils/cygwinccompiler.py
++++ b/setuptools/_distutils/cygwinccompiler.py
+@@ -322,13 +322,15 @@ class Mingw32CCompiler(CygwinCCompiler):
+         if is_cygwincc(self.cc):
+             raise CCompilerError('Cygwin gcc cannot be used with --compiler=mingw32')
+
+-        self.set_executables(
+-            compiler='%s -O -Wall' % self.cc,
+-            compiler_so='%s -mdll -O -Wall' % self.cc,
+-            compiler_cxx='%s -O -Wall' % self.cxx,
+-            linker_exe='%s' % self.cc,
+-            linker_so='{} {}'.format(self.linker_dll, shared_option),
+-        )
 +        if sys.maxsize == 2**31 - 1:
 +            ms_win=' -DMS_WIN32'
 +        else:
@@ -27,6 +28,8 @@ index e6c790118b..d4337669e3 100644
 +        self.set_executables(compiler='%s -O -Wall %s' % (self.cc, ms_win),
 +                             compiler_so='%s -mdll -O -Wall %s' % (self.cc, ms_win),
 +                             compiler_cxx='%s -O -Wall %s' % (self.cxx, ms_win),
-                              linker_exe='%s' % self.cc,
-                              linker_so='%s %s'
-                                         % (self.linker_dll, shared_option))
++                             linker_exe='%s' % self.cc,
++                             linker_so='%s %s' % (self.linker_dll, shared_option))
+
+         # Maybe we should also append -mthreads, but then the finished
+         # dlls need another dll (mingwm10.dll see Mingw32 docs)
