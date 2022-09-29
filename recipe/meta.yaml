@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
-  sha256: 7c7854ee1429a240090297628dc9f75b35318d193537968e2dc14010ee2f5bca
+  sha256: a8f6e213b4b0661f590ccf40de95d28a177cd747d098624ad3f69c40287297e9
   patches:
     # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
     - patches/0002-disable-downloads-inside-conda-build.patch
