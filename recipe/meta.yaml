@@ -1,4 +1,4 @@
-{% set version = "63.4.1" %}
+{% set version = "65.4.0" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it
 package:
