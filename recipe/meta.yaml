@@ -37,6 +37,8 @@ requirements:
     - wincertstore  >=0.2  # [win]
 
 test:
+  requires:
+    - pip
   commands:
     - pip check
   imports:
