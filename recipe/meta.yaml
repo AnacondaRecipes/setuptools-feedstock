@@ -58,7 +58,7 @@ about:
     designed to facilitate packaging Python projects.
   doc_url: https://setuptools.pypa.io/en/latest/
   dev_url: https://github.com/pypa/setuptools
-  doc_source_url: https://github.com/pypa/setuptools/tree/master/docs
+  doc_source_url: https://github.com/pypa/setuptools/tree/main/docs
 
 extra:
   recipe-maintainers:
