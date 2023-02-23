@@ -1,6 +1,6 @@
 channels:
   mesters_org: scipy
 build_parameters:
-  - error-overlinking
-  - error-overdepending
-  - suppress-variables
+  - "--suppress-variables"
+  - "--error-overlinking"
+  - "--error-overdepending"
