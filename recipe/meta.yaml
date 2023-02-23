@@ -1,4 +1,4 @@
-{% set version = "61.2.0" %}
+{% set version = "49.1.3" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it
 package:
@@ -6,18 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
-  sha256: c3d4e2ab578fbf83775755cd76dae73627915a22832cf4ea5de895978767833b
+  url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.zip
+  sha256: ea484041dc6495c4ee74dd578470866e3043f6d1c998cfafbdb1f668f1768284
   patches:
     # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
     - patches/0002-disable-downloads-inside-conda-build.patch
     # distutils patches from python-feedstock
-    - patches/0019-Use-ranlib-from-env-if-env-variable-is-set.patch
-    - patches/0012-Disable-new-dtags-in-unixccompiler.py.patch
     - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
-    - patches/0006-Win32-Fixes-for-Windows-GCC-interop-needed-by-RPy2-a.patch
-    # distutils patches from pypy3.6-feedstock
-    - patches/0035-pypy-distutils-scheme.patch   # [win or py>37]
 
 build:
   number: 0
