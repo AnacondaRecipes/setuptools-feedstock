@@ -55,6 +55,9 @@ about:
   dev_url: https://github.com/pypa/setuptools
 
 extra:
+  skip-lints:
+    - missing_wheel
+    - missing_python_build_tool
   recipe-maintainers:
     - jakirkham
     - msarahan
