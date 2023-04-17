@@ -11,7 +11,7 @@ diff --git a/setuptools/_distutils/_msvccompiler.py b/setuptools/_distutils/_msv
 index af8099a407..8f73453a6c 100644
 --- a/setuptools/_distutils/_msvccompiler.py
 +++ b/setuptools/_distutils/_msvccompiler.py
-@@ -346,6 +346,13 @@ class MSVCCompiler(CCompiler) :
+@@ -367,6 +367,13 @@ class MSVCCompiler(CCompiler) :
                  # without asking the user to browse for it
                  src = os.path.abspath(src)
 
@@ -25,9 +25,9 @@ index af8099a407..8f73453a6c 100644
              if ext in self._c_extensions:
                  input_opt = "/Tc" + src
              elif ext in self._cpp_extensions:
-@@ -390,7 +397,7 @@ class MSVCCompiler(CCompiler) :
-                 raise CompileError("Don't know how to compile {} to {}"
-                                    .format(src, obj))
+@@ -410,7 +417,7 @@ class MSVCCompiler(CCompiler) :
+                # how to handle this file?
+                raise CompileError(f"Don't know how to compile {src} to {obj}")
 
 -            args = [self.cc] + compile_opts + pp_opts
 +            args = [self.cc] + compile_opts + pp_opts + d1trimfile_opts
