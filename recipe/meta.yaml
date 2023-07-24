@@ -60,3 +60,7 @@ extra:
     - ocefpaf
     - nicoddemus
     - isuruf
+  skip-lints:
+    # As we are bootstrapping this build we do not require python build tools
+    - missing_python_build_tool
+    - missing_wheel
