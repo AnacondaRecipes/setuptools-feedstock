@@ -1,7 +1,6 @@
 {% set name = "setuptools" %}
-{% set version = "68.0.0" %}
-{% set build = "0" %}
-{% set checksum = "baf1fdb41c6da4cd2eae722e135500da913332ab3f2f5c7d33af9b492acb5235" %}
+{% set version = "68.2.2" %}
+{% set checksum = "4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it
 package:
@@ -39,7 +38,6 @@ test:
   imports:
     - setuptools
     - pkg_resources
-    - distutils
 
 about:
   home: https://github.com/pypa/setuptools
