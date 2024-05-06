@@ -1,6 +1,6 @@
 {% set name = "setuptools" %}
-{% set version = "68.2.2" %}
-{% set checksum = "4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87" %}
+{% set version = "69.5.1" %}
+{% set checksum = "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it
 package:
@@ -18,7 +18,7 @@ source:
 
 build:
   number: 0
-  skip: True               # [py<37]
+  skip: True               # [py<38]
 
 requirements:
   build:
@@ -48,7 +48,7 @@ about:
   description: |
     Setuptools is a fully-featured, actively-maintained, and stable library
     designed to facilitate packaging Python projects.
-  doc_url: https://setuptools.pypa.io/en/latest/
+  doc_url: https://setuptools.pypa.io
   dev_url: https://github.com/pypa/setuptools
 
 extra:
