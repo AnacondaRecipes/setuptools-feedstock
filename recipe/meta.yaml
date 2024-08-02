@@ -21,6 +21,7 @@ build:
   skip: True                # [py<38]
   missing_dso_whitelist:    # [win]
     - "$RPATH/MSVCR71.dll"  # [win]
+    - "$RPATH/MSVCR80.dll"  # [win]
 
 requirements:
   build:
