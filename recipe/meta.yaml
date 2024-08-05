@@ -1,6 +1,6 @@
 {% set name = "setuptools" %}
-{% set version = "69.5.1" %}
-{% set checksum = "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987" %}
+{% set version = "72.1.0" %}
+{% set checksum = "8d243eff56d095e5817f796ede6ae32941278f542e0f941867cc05ae52b162ec" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it
 package:
@@ -18,7 +18,10 @@ source:
 
 build:
   number: 0
-  skip: True               # [py<38]
+  skip: True                # [py<38]
+  missing_dso_whitelist:    # [win]
+    - "$RPATH/MSVCR71.dll"  # [win]
+    - "$RPATH/MSVCR80.dll"  # [win]
 
 requirements:
   build:
