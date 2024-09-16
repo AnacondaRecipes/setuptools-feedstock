@@ -1,6 +1,6 @@
 {% set name = "setuptools" %}
-{% set version = "72.1.0" %}
-{% set checksum = "8d243eff56d095e5817f796ede6ae32941278f542e0f941867cc05ae52b162ec" %}
+{% set version = "75.1.0" %}
+{% set checksum = "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it
 package:
