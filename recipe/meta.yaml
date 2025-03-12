@@ -1,5 +1,5 @@
 {% set name = "setuptools" %}
-{% set version = "75.8.0" %}
+{% set version = "76.0.0" %}
 {% set checksum = "c5afc8f407c626b8313a86e10311dd3f661c6cd9c09d4bf8c15c0e11f9f2b0e6" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
-  sha256: {{ checksum }}
+  sha256: 43b4ee60e10b0d0ee98ad11918e114c70701bc6051662a9a675a0496c1a158f4
   patches:
     # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
     - patches/0002-disable-downloads-inside-conda-build.patch
@@ -18,15 +18,15 @@ source:
 
 build:
   number: 0
-  skip: True                # [py<38]
-  missing_dso_whitelist:    # [win]
-    - "$RPATH/MSVCR71.dll"  # [win]
-    - "$RPATH/MSVCR80.dll"  # [win]
+  skip: true  # [py<38]
+  missing_dso_whitelist:  # [win]
+    - $RPATH/MSVCR71.dll  # [win]
+    - $RPATH/MSVCR80.dll  # [win]
 
 requirements:
   build:
-    - patch                # [unix]
-    - m2-patch             # [win]
+    - patch  # [unix]
+    - m2-patch  # [win]
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
