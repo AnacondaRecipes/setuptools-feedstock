@@ -11,10 +11,10 @@ source:
   url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
   sha256: {{ checksum }}
   patches:
-    # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
-    - patches/0002-disable-downloads-inside-conda-build.patch
-    # distutils patches from python-feedstock
-    - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
+    # # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
+    # - patches/0002-disable-downloads-inside-conda-build.patch
+    # # distutils patches from python-feedstock
+    # - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 build:
   number: 0
@@ -24,9 +24,9 @@ build:
     - "$RPATH/MSVCR80.dll"  # [win]
 
 requirements:
-  build:
-    - patch  # [unix]
-    - m2-patch  # [win]
+  # build:
+  #   - patch                # [unix]
+  #   - m2-patch             # [win]
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
