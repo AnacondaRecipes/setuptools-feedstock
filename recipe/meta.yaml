@@ -18,10 +18,12 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<38]
+  skip: true  # [py<39]
   missing_dso_whitelist:  # [win]
     - $RPATH/MSVCR71.dll  # [win]
     - $RPATH/MSVCR80.dll  # [win]
+  script_env:
+    - CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0
 
 requirements:
   build:
