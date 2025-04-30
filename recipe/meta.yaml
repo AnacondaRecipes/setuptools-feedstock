@@ -10,6 +10,9 @@ package:
 source:
   url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
   sha256: {{ checksum }}
+  patches:
+    - patches/0002-disable-downloads-inside-conda-build.patch
+    - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 build:
   number: 0
@@ -17,9 +20,6 @@ build:
   missing_dso_whitelist:    # [win]
     - "$RPATH/MSVCR71.dll"  # [win]
     - "$RPATH/MSVCR80.dll"  # [win]
-  patches:
-    - patches/0002-disable-downloads-inside-conda-build.patch
-    - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 requirements:
   build:
