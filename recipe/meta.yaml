@@ -17,6 +17,8 @@ build:
   missing_dso_whitelist:    # [win]
     - "$RPATH/MSVCR71.dll"  # [win]
     - "$RPATH/MSVCR80.dll"  # [win]
+  patches:
+    - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 requirements:
   host:
