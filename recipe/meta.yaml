@@ -21,6 +21,9 @@ build:
     - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 requirements:
+  build:
+    - patch    # [not win]
+    - m2-patch # [win]
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
