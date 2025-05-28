@@ -1,6 +1,6 @@
 {% set name = "setuptools" %}
-{% set version = "78.1.1" %}
-{% set checksum = "fcc17fd9cd898242f6b4adfaca46137a9edef687f43e6f78469692a5e70d851d" %}
+{% set version = "80.9.0" %}
+{% set checksum = "f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it locally
 package:
@@ -8,7 +8,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
   sha256: {{ checksum }}
   patches:
     - patches/0002-disable-downloads-inside-conda-build.patch
@@ -16,20 +16,31 @@ source:
 
 build:
   number: 0
-  skip: True                # [py<39]
-  missing_dso_whitelist:    # [win]
-    - "$RPATH/MSVCR71.dll"  # [win]
-    - "$RPATH/MSVCR80.dll"  # [win]
+  skip: true  # [py<39]
+  missing_dso_whitelist:  # [win]
+    - $RPATH/MSVCR71.dll  # [win]
+    - $RPATH/MSVCR80.dll  # [win]
 
 requirements:
   build:
-    - patch    # [not win]
-    - m2-patch # [win]
+    - patch  # [not win]
+    - m2-patch  # [win]
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
+    - pip
   run:
     - python
+  run_constrained:
+    - pytest-checkdocs >=2.4
+    - packaging >=24.2
+    - more_itertools >=8.8
+    - jaraco.text >=3.7
+    - wheel >=0.43.0
+    - platformdirs >=4.2.2
+    - jaraco.functools >=4
+    - pytest-enabler >=2.2
+    - mypy ==1.14.*
 
 test:
   requires:
