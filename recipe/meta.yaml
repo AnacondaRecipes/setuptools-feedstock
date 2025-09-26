@@ -20,9 +20,6 @@ build:
     - "$RPATH/MSVCR80.dll"  # [win]
 
 requirements:
-  build:
-    - patch    # [not win]
-    - m2-patch # [win]
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
