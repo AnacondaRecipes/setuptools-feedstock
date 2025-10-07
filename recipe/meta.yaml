@@ -58,3 +58,4 @@ extra:
     # As we are bootstrapping this build we do not require python build tools
     - missing_python_build_tool
     - missing_wheel
+    - deprecated_python_install_command
