@@ -1,6 +1,5 @@
 {% set name = "setuptools" %}
-{% set version = "78.1.1" %}
-{% set checksum = "fcc17fd9cd898242f6b4adfaca46137a9edef687f43e6f78469692a5e70d851d" %}
+{% set version = "80.9.0" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it locally
 package:
@@ -9,9 +8,8 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
-  sha256: {{ checksum }}
+  sha256: f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c
   patches:
-    - patches/0002-disable-downloads-inside-conda-build.patch
     - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 build:
@@ -22,9 +20,6 @@ build:
     - "$RPATH/MSVCR80.dll"  # [win]
 
 requirements:
-  build:
-    - patch    # [not win]
-    - m2-patch # [win]
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
@@ -63,3 +58,4 @@ extra:
     # As we are bootstrapping this build we do not require python build tools
     - missing_python_build_tool
     - missing_wheel
+    - deprecated_python_install_command
