@@ -1,5 +1,5 @@
 {% set name = "setuptools" %}
-{% set version = "80.10.2" %}
+{% set version = "82.0.0" %}
 
 # make sure to set CONDA_ADD_PIP_AS_PYTHON_DEPENDENCY=0 environ-variable before building it locally
 package:
@@ -7,24 +7,35 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
-  sha256: 8b0e9d10c784bf7d262c4e5ec5d4ec94127ce206e8738f29a437945fbc219b70
+  url: https://pypi.org/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
+  sha256: 22e0a2d69474c6ae4feb01951cb69d515ed23728cf96d05513d36e42b62b37cb
   patches:
     - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 build:
   number: 0
-  skip: True                # [py<39]
-  missing_dso_whitelist:    # [win]
-    - "$RPATH/MSVCR71.dll"  # [win]
-    - "$RPATH/MSVCR80.dll"  # [win]
+  skip: true  # [py<39]
+  missing_dso_whitelist:  # [win]
+    - $RPATH/MSVCR71.dll  # [win]
+    - $RPATH/MSVCR80.dll  # [win]
 
 requirements:
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
+    - pip
   run:
     - python
+  run_constrained:
+    - pytest-checkdocs >=2.4
+    - packaging >=24.2
+    - more_itertools >=8.8
+    - jaraco.text >=3.7
+    - wheel >=0.43.0
+    - platformdirs >=4.2.2
+    - jaraco.functools >=4
+    - pytest-enabler >=2.2
+    - mypy ==1.18.*
 
 test:
   requires:
