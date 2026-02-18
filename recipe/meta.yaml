@@ -17,8 +17,8 @@ source:
     - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
 
 build:
-  number: 0
-  skip: True               # [py<38]
+  number: 1
+  skip: True               # [py<310]
 
 requirements:
   build:
