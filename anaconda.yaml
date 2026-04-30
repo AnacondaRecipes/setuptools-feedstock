@@ -1,0 +1,5 @@
+anaconda_config_version: 1
+upstream_sources:
+  - pypi:
+      identifier: setuptools
+      include_regex: ^72\.\d+\.\d+(?:[a-z][a-z0-9]*)?$
