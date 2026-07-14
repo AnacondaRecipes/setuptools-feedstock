@@ -7,7 +7,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/s/setuptools/setuptools-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 025bccbbf0fa05b6192bc64ae1e7b16e001fd6d6d4d5de03c97b1c1ade523bef
   patches:
     - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
@@ -23,26 +23,101 @@ requirements:
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
-    - pip
   run:
     - python
   run_constrained:
-    - pytest-checkdocs >=2.14
+    # upstream
+    - pytest >=6,!= 8.1.*
+    # local
+    - virtualenv >=13.0.0
+    - wheel >=0.44.0 # Consistent requirement normalisation in METADATA (see #4547)
+    - pip >=19.1 # For proper file:// URLs support.
     - packaging >=24.2
-    - more_itertools >=8.8
-    - jaraco.text >=3.7
-    - wheel >=0.43.0
-    - jaraco.functools >=4
-    - pytest-enabler >=3.4
-    - mypy ==1.18.*
+    - jaraco.envs >=2.2
+    - pytest-xdist >=3 # Dropped dependency on pytest-fork and py
+    - jaraco.path >=3.7.2 # Typing fixes
+    - build[virtualenv] >=1.0.3
+    - filelock >=3.4.0
+    - ini2toml[lite]>=0.14
+    - tomli-w >=1.0.0
+    # for tools/finalize.py
+    - jaraco.develop >=7.21  # [py>=39]
+    - pytest-home >= 0.5
+    # workaround for pypa/pyproject-hooks#206
+    - pyproject-hooks !=1.1
+    - jaraco.test >=5.5  # py.typed
+
+# Test depends on jaraco packages which are not supported in main channel.
+# E   ImportError: cannot import name 'path' from 'jaraco' (unknown location)
+{% set ignore_tests = " --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/config/test_pyprojecttoml.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/config/test_pyprojecttoml_dynamic_deps.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_bdist_egg.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_bdist_wheel.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_build_ext.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_build_meta.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_build_py.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_config_discovery.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_core_metadata.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_develop.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_dist.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_editable_install.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_egg_info.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_find_packages.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_find_py_modules.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_glob.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_install_scripts.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_sdist.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_wheel.py" %}
+
+# E       fixture 'venv' not found
+# E       fixture 'tmpdir_cwd' not found
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/integration/test_pip_install_sdist.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_distutils_adoption.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=setuptools/tests/test_virtualenv.py" %}
+
+{% set disabled_tests = " --deselect setuptools/tests/integration/test_pbr.py::test_pbr_integration" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_build.py::test_distribution_gives_setuptools_build_obj" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDepends::testExtractConst" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDepends::testFindModule" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDepends::testModuleExtract" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDepends::testRequire" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDepends::test_require_present" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDistro::testDistroType" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDistro::testExcludePackage" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDistro::testIncludeExclude" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDistro::testExcludePackages" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDistro::testEmpty" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDistro::testContents" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::TestDistro::testInvalidIncludeExclude" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::test_findall" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::test_findall_curdir" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::test_findall_missing_symlink" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::test_wheel_includes_cli_scripts" %}
+{% set disabled_tests = disabled_tests + " --deselect setuptools/tests/test_setuptools.py::test_wheel_includes_vendored_metadata" %}
+
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_distutils_adoption.py::test_distutils_stdlib'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_distutils_adoption.py::test_modules_are_not_duplicated_on_import[stdlib-dir_util]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_distutils_adoption.py::test_modules_are_not_duplicated_on_import[stdlib-file_util]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_distutils_adoption.py::test_modules_are_not_duplicated_on_import[stdlib-archive_util]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_distutils_adoption.py::test_log_module_is_not_duplicated_on_import[stdlib]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_distutils_adoption.py::test_consistent_error_from_modified_py[stdlib-setuptools._distutils]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_virtualenv.py::test_pip_upgrade_from_source[pip<20.1]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_virtualenv.py::test_pip_upgrade_from_source[pip<21]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_virtualenv.py::test_pip_upgrade_from_source[pip<22]'" %}  # [py<=311]
+{% set disabled_tests = disabled_tests + " --deselect 'setuptools/tests/test_virtualenv.py::test_pip_upgrade_from_source[pip<23]'" %}  # [py<=311]
 
 test:
-  requires:
-    - pip
-  commands:
-    - pip check
+  source_files:
+    - setuptools/tests/
   imports:
     - setuptools
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -m pytest -vv setuptools/tests {{ ignore_tests }} {{ disabled_tests }}
 
 about:
   home: https://github.com/pypa/setuptools
@@ -66,5 +141,5 @@ extra:
   skip-lints:
     # As we are bootstrapping this build we do not require python build tools
     - missing_python_build_tool
-    - missing_wheel
+    - python_build_tools_in_host
     - deprecated_python_install_command
