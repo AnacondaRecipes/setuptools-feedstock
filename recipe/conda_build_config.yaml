@@ -1,0 +1,3 @@
+# Until AnacondaRecipes/aggregate#534 merges: t-only overlay (do not rebuild GIL 3.14).
+python:
+  - "3.14.* *_cp314t"
