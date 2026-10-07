@@ -23,18 +23,8 @@ requirements:
   host:
     # omitting wheel for this package to avoid cyclic dependencies
     - python
-    - pip
   run:
     - python
-  run_constrained:
-    - pytest-checkdocs >=2.14
-    - packaging >=24.2
-    - more_itertools >=8.8
-    - jaraco.text >=3.7
-    - wheel >=0.43.0
-    - jaraco.functools >=4
-    - pytest-enabler >=3.4
-    - mypy ==1.18.*
 
 test:
   imports:
